@@ -102,12 +102,6 @@ CEO -> AR -> 専門エージェント群
 - Hook 依存: `jsonschema`, `markdownlint-cli`
 - eval-loop on Windows Git Bash: `bash`, `git`, `jq`, `cygpath`
 
-## インストール
-
-claude plugin marketplace add .
-claude plugin install eval-loop@eval-loop --scope project
-claude plugin validate plugins/eval-loop --strict
-
 ## ライセンス
 
 [MIT](LICENSE)
