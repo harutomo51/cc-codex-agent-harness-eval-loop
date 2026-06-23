@@ -1,0 +1,54 @@
+{
+  "version": "1",
+  "skill": "assign-dba-table-evaluator",
+  "score_field": "quality.overall",
+  "breakdown_keys": [
+    {
+      "key": "erd_alignment",
+      "label": "ER図準拠",
+      "weight": 20,
+      "anchor": "ER図の概念・関係がテーブル、FK、中間テーブルに反映されているか"
+    },
+    {
+      "key": "column_definition",
+      "label": "カラム定義",
+      "weight": 25,
+      "anchor": "型、桁、NULL、DEFAULT、説明が用途に合うか"
+    },
+    {
+      "key": "constraints_integrity",
+      "label": "制約と整合性",
+      "weight": 20,
+      "anchor": "PK/FK/UK/CHECK、参照整合性、削除方針が明確か"
+    },
+    {
+      "key": "index_performance",
+      "label": "インデックス・性能",
+      "weight": 15,
+      "anchor": "主要クエリパターンに対する index 方針があるか"
+    },
+    {
+      "key": "operation_migration",
+      "label": "監査・履歴・移行",
+      "weight": 10,
+      "anchor": "created/updated/deleted、履歴、migration、rollback が考慮されているか"
+    },
+    {
+      "key": "naming_standards",
+      "label": "命名規約",
+      "weight": 10,
+      "anchor": "テーブル・カラム・制約・index の命名が一貫しているか"
+    }
+  ],
+  "breakdown_keys_source": "eval_schema",
+  "extras": {
+    "plan_implementation": "supplemental",
+    "feedback": "required",
+    "passed": "required",
+    "evaluator_skill": "required"
+  },
+  "passing_rule": "score >= threshold",
+  "ref": "docs/loop-criteria/design-database.md#2-テーブル定義ループ",
+  "rubric": "DBA テーブル定義 固定軸評価。score は quality.overall と同値。breakdown は固定キーのみを使う。",
+  "notes": "cc-codex-agent-harness DBA成果物ループ用のdomain evaluator。"
+}

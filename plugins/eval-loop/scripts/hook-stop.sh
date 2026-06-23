@@ -1,0 +1,42 @@
+#!/bin/bash
+# Stop hook: session_id でスコープした state を参照し、ループ継続/終了を判定する
+#
+# HOOK SAFETY: hook は何があっても exit 0 しなければならない。
+
+# Resolve script directory even when invoked from Windows Git Bash via a converted path.
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd -P 2>/dev/null)" || SCRIPT_DIR=""
+if [ -n "$SCRIPT_DIR" ] && [ -f "$SCRIPT_DIR/git-bash-compat.sh" ]; then
+  # shellcheck source=git-bash-compat.sh
+  . "$SCRIPT_DIR/git-bash-compat.sh"
+fi
+
+
+if ! command -v jq &>/dev/null; then
+  exit 0
+fi
+
+INPUT=$(cat) || exit 0
+CWD=$(echo "$INPUT" | jq -r '.cwd // "."' 2>/dev/null) || CWD="."
+if declare -F eval_loop_abs_dir >/dev/null 2>&1; then
+  CWD="$(eval_loop_abs_dir "$CWD")"
+fi
+SESSION_ID=$(echo "$INPUT" | jq -r '.session_id // empty' 2>/dev/null) || SESSION_ID=""
+
+if [ -z "$SESSION_ID" ]; then
+  exit 0
+fi
+
+if [[ "$SESSION_ID" =~ [/\\] ]] || [[ "$SESSION_ID" == *..* ]]; then
+  exit 0
+fi
+
+# Used by sourced loop-control.sh
+# shellcheck disable=SC2034
+STATE_FILE="$CWD/.mso/sessions/$SESSION_ID/state.json"
+# shellcheck disable=SC2034
+LOOP_LABEL="Eval-loop iteration"
+# shellcheck disable=SC2034
+HOOK_TYPE="Stop"
+
+# shellcheck source=loop-control.sh
+source "$SCRIPT_DIR/loop-control.sh"

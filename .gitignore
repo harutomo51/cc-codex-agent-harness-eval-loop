@@ -1,0 +1,4 @@
+output/
+.mso/
+.agent-team/loops-summary/*.json
+.agent-team/loops-summary/*.md

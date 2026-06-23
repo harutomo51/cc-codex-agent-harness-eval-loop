@@ -1,0 +1,54 @@
+{
+  "version": "1",
+  "skill": "assign-dba-consistency-evaluator",
+  "score_field": "quality.overall",
+  "breakdown_keys": [
+    {
+      "key": "entity_table_mapping",
+      "label": "エンティティとテーブル対応",
+      "weight": 25,
+      "anchor": "全エンティティと全テーブルの対応が説明できるか"
+    },
+    {
+      "key": "relationship_fk_mapping",
+      "label": "リレーションとFK対応",
+      "weight": 25,
+      "anchor": "ER上の関係が FK / UK / 中間テーブルに落ちているか"
+    },
+    {
+      "key": "cardinality_constraints",
+      "label": "多重度と制約",
+      "weight": 20,
+      "anchor": "多重度と NOT NULL / UNIQUE / FK が矛盾しないか"
+    },
+    {
+      "key": "terminology_consistency",
+      "label": "命名・用語一貫性",
+      "weight": 10,
+      "anchor": "業務用語、ER名、テーブル名、カラム名が対応するか"
+    },
+    {
+      "key": "lifecycle_consistency",
+      "label": "削除・履歴・状態遷移整合性",
+      "weight": 10,
+      "anchor": "削除方式、履歴保持、状態遷移が成果物間で一致しているか"
+    },
+    {
+      "key": "issue_routing",
+      "label": "差し戻し先の明確性",
+      "weight": 10,
+      "anchor": "問題が ER / テーブル / 要件 / 未決事項のどこに属するか明確か"
+    }
+  ],
+  "breakdown_keys_source": "eval_schema",
+  "extras": {
+    "plan_implementation": "supplemental",
+    "feedback": "required",
+    "passed": "required",
+    "evaluator_skill": "required"
+  },
+  "passing_rule": "score >= threshold",
+  "ref": "docs/loop-criteria/design-database.md#3-er図--テーブル定義-整合性ループ",
+  "rubric": "DBA ER図 ↔ テーブル定義 整合性 固定軸評価。score は quality.overall と同値。breakdown は固定キーのみを使う。",
+  "notes": "cc-codex-agent-harness DBA成果物ループ用のdomain evaluator。"
+}

@@ -1,0 +1,48 @@
+{
+  "version": "1",
+  "skill": "assign-dba-erd-evaluator",
+  "score_field": "quality.overall",
+  "breakdown_keys": [
+    {
+      "key": "requirements_traceability",
+      "label": "要件トレーサビリティ",
+      "weight": 25,
+      "anchor": "主要要件からエンティティ・関係への対応が説明できるか"
+    },
+    {
+      "key": "entity_modeling",
+      "label": "エンティティ抽出の妥当性",
+      "weight": 25,
+      "anchor": "業務概念、集約、ライフサイクルが不自然に混在していないか"
+    },
+    {
+      "key": "relationship_cardinality",
+      "label": "リレーションと多重度",
+      "weight": 25,
+      "anchor": "1:1 / 1:N / N:M と中間概念が明確か"
+    },
+    {
+      "key": "business_lifecycle",
+      "label": "削除・履歴・状態遷移",
+      "weight": 15,
+      "anchor": "状態、履歴、削除方針が業務ルールと矛盾しないか"
+    },
+    {
+      "key": "open_questions",
+      "label": "未決事項の分離",
+      "weight": 10,
+      "anchor": "決めきれない論点が本文に紛れず分離されているか"
+    }
+  ],
+  "breakdown_keys_source": "eval_schema",
+  "extras": {
+    "plan_implementation": "supplemental",
+    "feedback": "required",
+    "passed": "required",
+    "evaluator_skill": "required"
+  },
+  "passing_rule": "score >= threshold",
+  "ref": "docs/loop-criteria/design-database.md#1-er図--データモデルループ",
+  "rubric": "DBA ER図 / データモデル 固定軸評価。score は quality.overall と同値。breakdown は固定キーのみを使う。",
+  "notes": "cc-codex-agent-harness DBA成果物ループ用のdomain evaluator。"
+}

@@ -1,0 +1,48 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -lc 'p=\"$1\"; if command -v cygpath >/dev/null 2>&1; then p=\"$(cygpath -u \"$p\" 2>/dev/null || printf %s \"$p\")\"; fi; exec bash \"$p\"' _ \"${CLAUDE_PLUGIN_ROOT}/scripts/hook-prompt-submit.sh\""
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -lc 'p=\"$1\"; if command -v cygpath >/dev/null 2>&1; then p=\"$(cygpath -u \"$p\" 2>/dev/null || printf %s \"$p\")\"; fi; exec bash \"$p\"' _ \"${CLAUDE_PLUGIN_ROOT}/scripts/hook-stop.sh\""
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -lc 'p=\"$1\"; if command -v cygpath >/dev/null 2>&1; then p=\"$(cygpath -u \"$p\" 2>/dev/null || printf %s \"$p\")\"; fi; exec bash \"$p\"' _ \"${CLAUDE_PLUGIN_ROOT}/scripts/hook-subagent-start.sh\""
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -lc 'p=\"$1\"; if command -v cygpath >/dev/null 2>&1; then p=\"$(cygpath -u \"$p\" 2>/dev/null || printf %s \"$p\")\"; fi; exec bash \"$p\"' _ \"${CLAUDE_PLUGIN_ROOT}/scripts/hook-subagent-stop.sh\""
+          }
+        ]
+      }
+    ]
+  }
+}
